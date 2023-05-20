@@ -1,11 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace SampleWorker.Worker.DependencyInjection;
 
-namespace SampleWorker.Worker.DependencyInjection;
-
-internal class ServiceCollectionExtensions
+[ExcludeFromCodeCoverage]
+internal static class ServiceCollectionExtensions
 {
+    internal static IServiceCollection InitializeAppliactionServices(this IServiceCollection services,
+        IConfiguration configuration,
+        IWebHostEnvironment environment)
+    {
+        services.AddConsumers();
+
+        return services;
+    }
+
+    private static IServiceCollection AddConsumers(this IServiceCollection services)
+    {
+        services.AddHostedService<Worker>();
+
+        return services;
+    }
 }

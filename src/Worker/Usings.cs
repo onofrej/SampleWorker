@@ -1,5 +1,4 @@
-﻿global using System;
-global using System.Collections.Generic;
-global using System.Linq;
-global using System.Text;
-global using System.Threading.Tasks;
+﻿global using Microsoft.AspNetCore.Builder;
+global using Microsoft.AspNetCore.Hosting;
+global using Serilog;
+global using System.Diagnostics.CodeAnalysis;

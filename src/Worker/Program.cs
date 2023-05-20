@@ -1,16 +1,4 @@
-//using Worker;
-
-//IHost host = Host.CreateDefaultBuilder(args)
-//    .ConfigureServices(services =>
-//    {
-//        services.AddHostedService<Worker>();
-//    })
-//    .Build();
-
-//await host.RunAsync();
-
-using Microsoft.AspNetCore.Builder;
-using Serilog;
+using SampleWorker.Worker.DependencyInjection;
 
 try
 {
@@ -21,10 +9,14 @@ try
         .Enrich.FromLogContext()
         .CreateLogger();
 
+    Log.Logger.Information("Application started in environment {EnvironmentName}", builder.Environment.EnvironmentName);
+
     builder.Logging.ClearProviders();
     builder.Logging.AddSerilog(Log.Logger);
 
     builder.Services.AddHealthChecks();
+    builder.Services.InitializeAppliactionServices(builder.Configuration,
+        builder.Environment);
 
     var app = builder.Build();
 
