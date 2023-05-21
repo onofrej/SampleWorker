@@ -1,4 +1,6 @@
-﻿namespace SampleWorker.Worker.DependencyInjection;
+﻿using SampleWorker.Application.DependencyInjection;
+
+namespace SampleWorker.Worker.DependencyInjection;
 
 [ExcludeFromCodeCoverage]
 internal static class ServiceCollectionExtensions
@@ -7,7 +9,8 @@ internal static class ServiceCollectionExtensions
         IConfiguration configuration,
         IWebHostEnvironment environment)
     {
-        services.AddConsumers();
+        services.AddUseCases(configuration)
+            .AddConsumers();
 
         return services;
     }

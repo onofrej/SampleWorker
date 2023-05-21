@@ -1,11 +1,15 @@
+using SampleWorker.Application.UseCases.CreateOrder;
+
 namespace SampleWorker.Worker;
 
 public class Worker : IHostedService
 {
     private readonly ILogger<Worker> _logger;
+    private readonly ICreateOrderUseCase _createOrderUseCase;
 
-    public Worker(ILogger<Worker> logger)
+    public Worker(ILogger<Worker> logger, ICreateOrderUseCase createOrderUseCase)
     {
+        _createOrderUseCase = createOrderUseCase;
         _logger = logger;
     }
 
@@ -25,8 +29,9 @@ public class Worker : IHostedService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-            await Task.Delay(1000, stoppingToken);
+            await _createOrderUseCase.ExecuteAsync(new CreateOrderInput(Guid.NewGuid()), stoppingToken);
+
+            await Task.Delay(100, stoppingToken);
         }
     }
 }

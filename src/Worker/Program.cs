@@ -28,3 +28,7 @@ catch (Exception exception)
 {
     Log.Logger.Fatal(exception.ToString());
 }
+
+[ExcludeFromCodeCoverage]
+public partial class Program
+{ }
