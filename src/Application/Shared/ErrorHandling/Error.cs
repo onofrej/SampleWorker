@@ -1,7 +1,7 @@
 ﻿namespace SampleWorker.Application.Shared.ErrorHandling;
 
 [ExcludeFromCodeCoverage]
-public struct Error : IEquatable<Error>
+public readonly struct Error : IEquatable<Error>
 {
     public Error(string errorCode, string errorMessage)
     {
@@ -13,18 +13,9 @@ public struct Error : IEquatable<Error>
 
     public string ErrorMessage { get; }
 
-    public bool Equals(Error other)
+    public static bool operator !=(Error left, Error right)
     {
-        return ErrorCode == other.ErrorCode &&
-            ErrorMessage == other.ErrorMessage;
-    }
-
-    public override bool Equals(object @object) =>
-        @object is Error other && Equals(other);
-
-    public override int GetHashCode()
-    {
-        return ErrorCode.GetHashCode();
+        return !(left == right);
     }
 
     public static bool operator ==(Error left, Error right)
@@ -32,8 +23,19 @@ public struct Error : IEquatable<Error>
         return left.Equals(right);
     }
 
-    public static bool operator !=(Error left, Error right)
+    public readonly bool Equals(Error other)
     {
-        return !(left == right);
+        return ErrorCode == other.ErrorCode &&
+            ErrorMessage == other.ErrorMessage;
+    }
+
+    public override bool Equals(object? obj)
+    {
+        return obj is Error error && Equals(error);
+    }
+
+    public override readonly int GetHashCode()
+    {
+        return ErrorCode.GetHashCode();
     }
 }

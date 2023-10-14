@@ -1,4 +1,5 @@
 using SampleWorker.Worker.DependencyInjection;
+using Serilog;
 
 try
 {
@@ -30,5 +31,5 @@ catch (Exception exception)
 }
 
 [ExcludeFromCodeCoverage]
-public partial class Program
+public static partial class Program
 { }

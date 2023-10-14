@@ -1,7 +1,7 @@
 ﻿namespace SampleWorker.Application.UseCases.CreateOrder;
 
 [ExcludeFromCodeCoverage]
-public class CreateOrderUseCase : ICreateOrderUseCase
+internal sealed class CreateOrderUseCase : ICreateOrderUseCase
 {
     private readonly ILogger<CreateOrderUseCase> _logger;
 

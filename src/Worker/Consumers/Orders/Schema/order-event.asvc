@@ -1,0 +1,28 @@
+{
+  "type": "record",
+  "name": "OrderEvent",
+  "namespace": "onofrej.github.io",
+  "fields": [
+    {
+      "name": "OrderId",
+      "type": "string",
+      "doc": "Identification code of the order"
+    },
+    {
+      "name": "Value",
+      "type": "double",
+      "doc": "Value of the order"
+    },
+    {
+      "name": "OrderDate",
+      "type": "string",
+      "doc": "Date and time of the order (UTC)"
+    },
+    {
+      "name": "ClientId",
+      "type": "string",
+      "doc": "Identification code of the client"
+    }
+  ],
+  "doc:": "A basic schema for storing orders"
+}
