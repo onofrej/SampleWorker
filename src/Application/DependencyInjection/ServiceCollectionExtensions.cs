@@ -1,4 +1,6 @@
-﻿using SampleWorker.Application.UseCases.CreateOrder;
+﻿using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
+using SampleWorker.Application.UseCases.CreateOrder;
 
 namespace SampleWorker.Application.DependencyInjection;
 
@@ -7,7 +9,10 @@ public static class ServiceCollectionExtensions
 {
     public static IServiceCollection AddUseCases(this IServiceCollection services, IConfiguration configuration)
     {
-        services.AddCreateOrderCase(configuration);
+        services.AddCreateOrderUseCase(configuration);
+
+        services.AddScoped<IDynamoDBContext, DynamoDBContext>();
+        services.AddAWSService<IAmazonDynamoDB>();
 
         return services;
     }

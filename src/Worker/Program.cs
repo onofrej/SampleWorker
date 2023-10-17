@@ -31,5 +31,8 @@ catch (Exception exception)
 }
 
 [ExcludeFromCodeCoverage]
-public static partial class Program
-{ }
+public partial class Program
+{
+    protected Program()
+    { }
+}
