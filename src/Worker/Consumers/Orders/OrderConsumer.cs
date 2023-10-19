@@ -61,15 +61,18 @@ internal class OrderConsumer : IScopedBackgroundService
                 consumeResult.Message.Value.ClientId,
                 consumeResult.Message.Value.Value);
 
+            var dateTime = DateTime.Now.ToString("dd-MM-yyyyy mm:ss:fff");
+
             var logInfo = new
             {
                 createOrderInput.ClientId,
-                createOrderInput.OrderId
+                createOrderInput.OrderId,
+                DateTime = dateTime
             };
 
             _logger.LogConsumerInfo(nameof(OrderConsumer), logInfo);
 
-            await _createOrderUseCase.ExecuteAsync(createOrderInput, stoppingToken);
+            //await _createOrderUseCase.ExecuteAsync(createOrderInput, stoppingToken);
 
             _consumer.StoreOffset(consumeResult);
 
