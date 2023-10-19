@@ -1,11 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Amazon.DynamoDBv2;
-using Amazon.DynamoDBv2.DataModel;
-using Amazon.DynamoDBv2.DocumentModel;
-using Amazon.DynamoDBv2.Model;
-using Microsoft.Extensions.Configuration;
-using SampleWorker.Application.UseCases.CreateOrder.DataAccess;
+﻿using SampleWorker.Application.UseCases.CreateOrder.DataAccess;
 
 namespace SampleWorker.IntegrationTests.Fixtures.DynamoDb;
 

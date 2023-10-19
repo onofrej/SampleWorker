@@ -1,7 +1,6 @@
-﻿namespace SampleWorker.Application.UseCases.CreateOrder
+﻿namespace SampleWorker.Application.UseCases.CreateOrder;
+
+public interface ICreateOrderUseCase
 {
-    public interface ICreateOrderUseCase
-    {
-        Task ExecuteAsync(CreateOrderInput input, CancellationToken cancellationToken);
-    }
+    Task ExecuteAsync(CreateOrderInput input, CancellationToken cancellationToken);
 }

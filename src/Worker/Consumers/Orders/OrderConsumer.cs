@@ -19,7 +19,7 @@ internal class OrderConsumer : IScopedBackgroundService
         _consumer = consumer;
         _logger = logger;
         _createOrderUseCase = createOrderUseCase;
-        _batchSize = int.Parse(configuration.GetSection("kafka:Consumer:BatchSize").Value);
+        _batchSize = int.Parse(configuration.GetSection("kafka:Consumer:BatchSize").Value!);
     }
 
     public async Task ExecuteAsync(CancellationToken stoppingToken)

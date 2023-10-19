@@ -16,8 +16,7 @@ try
     builder.Logging.AddSerilog(Log.Logger);
 
     builder.Services.AddHealthChecks();
-    builder.Services.InitializeAppliactionServices(builder.Configuration,
-        builder.Environment);
+    builder.Services.InitializeAppliactionServices(builder.Configuration);
 
     var app = builder.Build();
 

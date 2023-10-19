@@ -1,5 +1,4 @@
-﻿using Microsoft.Extensions.Configuration;
-using SampleWorker.IntegrationTests.Factories;
+﻿using SampleWorker.IntegrationTests.Factories;
 using SampleWorker.IntegrationTests.Fixtures.DynamoDb;
 using SampleWorker.IntegrationTests.Fixtures.Kafka;
 
@@ -42,9 +41,9 @@ public sealed class MainFixture : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    private void InitializeEnvironmentVariables()
+    private static void InitializeEnvironmentVariables()
     {
-        Environment.SetEnvironmentVariable("EXECUTION_ENVIRONMENT", "integration-test");
+        Environment.SetEnvironmentVariable("EXECUTION_ENVIRONMENT", "IntegrationTest");
         Environment.SetEnvironmentVariable("HTTP_PROXY", "");
         Environment.SetEnvironmentVariable("HTTPS_PROXY", "");
         Environment.SetEnvironmentVariable("AWS_ACCESS_KEY_ID", "test");

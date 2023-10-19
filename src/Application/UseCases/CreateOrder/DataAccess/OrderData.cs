@@ -1,6 +1,4 @@
-﻿using Amazon.DynamoDBv2.DataModel;
-
-namespace SampleWorker.Application.UseCases.CreateOrder.DataAccess;
+﻿namespace SampleWorker.Application.UseCases.CreateOrder.DataAccess;
 
 [ExcludeFromCodeCoverage]
 internal sealed class OrderData : IOrderData

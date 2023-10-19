@@ -1,30 +1,34 @@
-﻿using Amazon.DynamoDBv2.DataModel;
-
-namespace SampleWorker.Application.UseCases.CreateOrder.DataAccess;
+﻿namespace SampleWorker.Application.UseCases.CreateOrder.DataAccess;
 
 [ExcludeFromCodeCoverage]
 [DynamoDBTable(TableName)]
 public class OrderEntity
 {
-    public const string HashKeyName = "cod_idt_nota_crrg";
-    public const string SortKeyName = "cod_idt_invt";
-    public const string TableName = "tbfd9144_nota_rend_vrvl";
+    public const string HashKeyName = "order_id";
+    public const string SortKeyName = "client_id";
+    public const string TableName = "order-table";
 
-    [DynamoDBHashKey(HashKeyName)]
-    public string? BrokerNoteId { get; set; }
+    public OrderEntity()
+    {
+    }
 
-    [DynamoDBProperty("num_nota_crrg")]
-    public string? BrokerNoteNumber { get; set; }
-
-    [DynamoDBProperty("cod_idt_clie")]
-    public string? ClientId { get; set; }
-
-    [DynamoDBProperty("numero_nota_investidor_interno")]
-    public string? InternalBrokerNoteId { get; set; }
-
-    [DynamoDBProperty("cod_idt_fami_prod")]
-    public string? InternalCode { get; set; }
+    public OrderEntity(string? clientId, string? orderDate, string? orderId, double value)
+    {
+        ClientId = clientId;
+        OrderDate = orderDate;
+        OrderId = orderId;
+        Value = value;
+    }
 
     [DynamoDBRangeKey(SortKeyName)]
-    public string? InvestmentId { get; set; }
+    public string? ClientId { get; private set; }
+
+    [DynamoDBProperty("order_date")]
+    public string? OrderDate { get; private set; }
+
+    [DynamoDBHashKey(HashKeyName)]
+    public string? OrderId { get; private set; }
+
+    [DynamoDBProperty("value")]
+    public double Value { get; private set; }
 }

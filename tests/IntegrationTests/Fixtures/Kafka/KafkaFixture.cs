@@ -1,11 +1,4 @@
-﻿using System.Collections.Generic;
-using Confluent.Kafka;
-using Confluent.Kafka.Admin;
-using Confluent.Kafka.SyncOverAsync;
-using Confluent.SchemaRegistry;
-using Confluent.SchemaRegistry.Serdes;
-using Microsoft.Extensions.Configuration;
-using onofrej.github.io;
+﻿using onofrej.github.io;
 
 namespace SampleWorker.IntegrationTests.Fixtures.Kafka;
 
@@ -21,7 +14,7 @@ internal sealed class KafkaFixture : IDisposable
     {
         _configuration = configuration;
 
-        _brokerNotesTopic = _configuration.GetSection("KafkaSettings:Topics:BrokerNotes").Value!;
+        _brokerNotesTopic = _configuration.GetSection("KafkaSettings:Topics:Order").Value!;
 
         _cachedSchemaRegistryClient = new CachedSchemaRegistryClient(new SchemaRegistryConfig
         {
@@ -33,7 +26,7 @@ internal sealed class KafkaFixture : IDisposable
         var avroSerializerValueConfig = new AvroSerializerConfig
         {
             AutoRegisterSchemas = true,
-            //SubjectNameStrategy = SubjectNameStrategy.TopicRecord,
+            SubjectNameStrategy = SubjectNameStrategy.TopicRecord,
         };
 
         var producerConfig = new ProducerConfig

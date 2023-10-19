@@ -9,10 +9,9 @@ namespace SampleWorker.Worker.DependencyInjection;
 internal static class ServiceCollectionExtensions
 {
     internal static IServiceCollection InitializeAppliactionServices(this IServiceCollection services,
-        IConfiguration configuration,
-        IWebHostEnvironment environment)
+        IConfiguration configuration)
     {
-        services.AddUseCases(configuration)
+        services.AddUseCases()
             .AddConsumers(configuration);
 
         return services;
@@ -23,7 +22,7 @@ internal static class ServiceCollectionExtensions
     {
         services.AddScopedHostedService<OrderConsumer>();
 
-        string brokerNotesTopic = configuration.GetSection("kafka:Consumer:Topics:BrokerNotes").Value;
+        string brokerNotesTopic = configuration.GetSection("kafka:Consumer:Topics:Order").Value!;
 
         var schemaRegistryConfig = new SchemaRegistryConfig
         {
