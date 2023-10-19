@@ -72,7 +72,7 @@ internal class OrderConsumer : IScopedBackgroundService
 
             _logger.LogConsumerInfo(nameof(OrderConsumer), logInfo);
 
-            //await _createOrderUseCase.ExecuteAsync(createOrderInput, stoppingToken);
+            await _createOrderUseCase.ExecuteAsync(createOrderInput, stoppingToken);
 
             _consumer.StoreOffset(consumeResult);
 

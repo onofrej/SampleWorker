@@ -42,13 +42,13 @@ internal static class ServiceCollectionExtensions
 
         services.AddSingleton(services =>
         {
-            var brokerNotesConsumer = new ConsumerBuilder<string, OrderEvent>(consumerConfig)
+            var orderConsumer = new ConsumerBuilder<string, OrderEvent>(consumerConfig)
               .SetValueDeserializer(new AvroDeserializer<OrderEvent>(new CachedSchemaRegistryClient(schemaRegistryConfig)).AsSyncOverAsync())
               .Build();
 
-            brokerNotesConsumer.Subscribe(brokerNotesTopic);
+            orderConsumer.Subscribe(brokerNotesTopic);
 
-            return brokerNotesConsumer;
+            return orderConsumer;
         });
 
         return services;
