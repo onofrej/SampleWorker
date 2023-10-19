@@ -5,16 +5,16 @@ namespace SampleWorker.IntegrationTests.Fixtures.Kafka;
 internal sealed class KafkaFixture : IDisposable
 {
     private readonly IAdminClient _adminClient;
-    private readonly string _brokerNotesTopic;
     private readonly CachedSchemaRegistryClient _cachedSchemaRegistryClient;
     private readonly IConfiguration _configuration;
     private readonly IProducer<string, OrderEvent> _OrderProducer;
+    private readonly string _orderTopic;
 
     public KafkaFixture(IConfiguration configuration)
     {
         _configuration = configuration;
 
-        _brokerNotesTopic = _configuration.GetSection("KafkaSettings:Topics:Order").Value!;
+        _orderTopic = _configuration.GetSection("KafkaSettings:Topics:Order").Value!;
 
         _cachedSchemaRegistryClient = new CachedSchemaRegistryClient(new SchemaRegistryConfig
         {
@@ -61,7 +61,7 @@ internal sealed class KafkaFixture : IDisposable
 
     public void ProduceBrokeNotesMessage(OrderEvent message)
     {
-        _OrderProducer.Produce(_brokerNotesTopic, new Message<string, OrderEvent> { Value = message });
+        _OrderProducer.Produce(_orderTopic, new Message<string, OrderEvent> { Value = message });
         _OrderProducer.Flush();
     }
 
@@ -69,10 +69,10 @@ internal sealed class KafkaFixture : IDisposable
     {
         var metadata = _adminClient.GetMetadata(TimeSpan.FromMilliseconds(100));
 
-        if (!metadata.Topics.Exists(predicate => string.Equals(predicate.Topic, _brokerNotesTopic, StringComparison.OrdinalIgnoreCase)))
+        if (!metadata.Topics.Exists(predicate => string.Equals(predicate.Topic, _orderTopic, StringComparison.OrdinalIgnoreCase)))
         {
             await _adminClient.CreateTopicsAsync(new List<TopicSpecification> {
-                new TopicSpecification { Name = _brokerNotesTopic, NumPartitions = 1, ReplicationFactor = 1
+                new TopicSpecification { Name = _orderTopic, NumPartitions = 1, ReplicationFactor = 1
             } });
         }
     }
@@ -81,9 +81,9 @@ internal sealed class KafkaFixture : IDisposable
     {
         var metadata = _adminClient.GetMetadata(TimeSpan.FromMilliseconds(100));
 
-        if (metadata.Topics.Exists(predicate => string.Equals(predicate.Topic, _brokerNotesTopic, StringComparison.OrdinalIgnoreCase)))
+        if (metadata.Topics.Exists(predicate => string.Equals(predicate.Topic, _orderTopic, StringComparison.OrdinalIgnoreCase)))
         {
-            await _adminClient.DeleteTopicsAsync(new string[] { _brokerNotesTopic });
+            await _adminClient.DeleteTopicsAsync(new string[] { _orderTopic });
         }
     }
 }
