@@ -36,7 +36,7 @@ internal static class ServiceCollectionExtensions
             GroupId = configuration.GetSection("kafka:Consumer:GroupId").Value,
             EnableAutoCommit = true,
             EnableAutoOffsetStore = false,
-            AutoCommitIntervalMs = 1000,
+            AutoCommitIntervalMs = 2000,
             AutoOffsetReset = AutoOffsetReset.Earliest
         };
 

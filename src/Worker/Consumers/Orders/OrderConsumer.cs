@@ -26,22 +26,26 @@ internal class OrderConsumer : IScopedBackgroundService
     {
         try
         {
-            await Task.WhenAll(CreateTasks(stoppingToken));
+            //await Task.WhenAll(CreateTasks(stoppingToken));
+
+            var consumeResult = _consumer.Consume(stoppingToken);
+
+            await ProcessMessageAsync(consumeResult, stoppingToken);
         }
         catch (Exception exception)
         {
             _logger.LogConsumerError(nameof(OrderConsumer), exception);
         }
 
-        IEnumerable<Task> CreateTasks(CancellationToken stoppingToken)
-        {
-            for (int counter = 0; counter < _batchSize; counter++)
-            {
-                var consumeResult = _consumer.Consume(stoppingToken);
+        //IEnumerable<Task> CreateTasks(CancellationToken stoppingToken)
+        //{
+        //    for (int counter = 0; counter < _batchSize; counter++)
+        //    {
+        //        var consumeResult = _consumer.Consume(stoppingToken);
 
-                yield return ProcessMessageAsync(consumeResult, stoppingToken);
-            }
-        }
+        //        yield return ProcessMessageAsync(consumeResult, stoppingToken);
+        //    }
+        //}
     }
 
     private async Task ProcessMessageAsync(ConsumeResult<string, OrderEvent> consumeResult, CancellationToken stoppingToken)
