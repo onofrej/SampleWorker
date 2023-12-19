@@ -1,4 +1,7 @@
-﻿using SampleWorker.Application.DependencyInjection;
+﻿using onofrej.github.io;
+using SampleWorker.Application.DependencyInjection;
+using SampleWorker.Worker.Base;
+using SampleWorker.Worker.Consumers.Orders;
 
 namespace SampleWorker.Worker.DependencyInjection;
 
@@ -6,18 +9,58 @@ namespace SampleWorker.Worker.DependencyInjection;
 internal static class ServiceCollectionExtensions
 {
     internal static IServiceCollection InitializeAppliactionServices(this IServiceCollection services,
-        IConfiguration configuration,
-        IWebHostEnvironment environment)
+        IConfiguration configuration)
     {
-        services.AddUseCases(configuration)
-            .AddConsumers();
+        services.AddUseCases()
+            .AddConsumers(configuration);
 
         return services;
     }
 
-    private static IServiceCollection AddConsumers(this IServiceCollection services)
+    private static IServiceCollection AddConsumers(this IServiceCollection services,
+      IConfiguration configuration)
     {
-        services.AddHostedService<Worker>();
+        services.AddScopedHostedService<OrderConsumer>();
+
+        string brokerNotesTopic = configuration.GetSection("kafka:Consumer:Topics:Order").Value!;
+
+        var schemaRegistryConfig = new SchemaRegistryConfig
+        {
+            Url = configuration.GetSection("kafka:SchemaRegistryUrl").Value
+        };
+
+        var consumerConfig = new ConsumerConfig
+        {
+            BootstrapServers = configuration.GetSection("kafka:BootstrapServer").Value,
+            ClientId = configuration.GetSection("kafka:Consumer:ClientId").Value,
+            GroupId = configuration.GetSection("kafka:Consumer:GroupId").Value,
+            EnableAutoCommit = true,
+            EnableAutoOffsetStore = false,
+            AutoCommitIntervalMs = 2000,
+            AutoOffsetReset = AutoOffsetReset.Earliest
+        };
+
+        services.AddSingleton(services =>
+        {
+            var orderConsumer = new ConsumerBuilder<string, OrderEvent>(consumerConfig)
+              .SetValueDeserializer(new AvroDeserializer<OrderEvent>(new CachedSchemaRegistryClient(schemaRegistryConfig)).AsSyncOverAsync())
+              .Build();
+
+            orderConsumer.Subscribe(brokerNotesTopic);
+
+            return orderConsumer;
+        });
+
+        return services;
+    }
+
+    private static IServiceCollection AddScopedHostedService<T>(this IServiceCollection services) where T : IScopedBackgroundService
+    {
+        if (services is null)
+            throw new ArgumentNullException(nameof(services));
+
+        services.AddHostedService<ScopedBackgroundService<T>>();
+        services.AddScoped(typeof(T));
 
         return services;
     }

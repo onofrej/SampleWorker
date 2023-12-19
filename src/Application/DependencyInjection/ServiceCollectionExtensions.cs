@@ -1,13 +1,14 @@
-﻿using SampleWorker.Application.UseCases.CreateOrder;
-
-namespace SampleWorker.Application.DependencyInjection;
+﻿namespace SampleWorker.Application.DependencyInjection;
 
 [ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddUseCases(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddUseCases(this IServiceCollection services)
     {
-        services.AddCreateOrderCase(configuration);
+        services.AddCreateOrderUseCase();
+
+        services.AddScoped<IDynamoDBContext, DynamoDBContext>();
+        services.AddAWSService<IAmazonDynamoDB>();
 
         return services;
     }

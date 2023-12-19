@@ -1,11 +1,14 @@
-﻿namespace SampleWorker.Application.UseCases.CreateOrder;
+﻿using SampleWorker.Application.UseCases.CreateOrder.DataAccess;
+
+namespace SampleWorker.Application.UseCases.CreateOrder;
 
 [ExcludeFromCodeCoverage]
 public static class ServiceCollectionExtensions
 {
-    public static IServiceCollection AddCreateOrderCase(this IServiceCollection services, IConfiguration configuration)
+    public static IServiceCollection AddCreateOrderUseCase(this IServiceCollection services)
     {
-        services.AddSingleton<ICreateOrderUseCase, CreateOrderUseCase>();
+        services.AddScoped<ICreateOrderUseCase, CreateOrderUseCase>();
+        services.AddScoped<IOrderData, OrderData>();
 
         return services;
     }

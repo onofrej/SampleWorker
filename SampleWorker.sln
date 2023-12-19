@@ -3,17 +3,23 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.31912.275
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Worker", "src\Worker\Worker.csproj", "{8833D116-B515-4609-8906-AFDA34131A5B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Worker", "src\Worker\Worker.csproj", "{8833D116-B515-4609-8906-AFDA34131A5B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{2E63F812-65FB-484D-850B-B16CA1379DFF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{9CFBB3EA-0FB2-4439-9EBB-AB55F9D3C8C4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{E7BFAAF7-C595-4996-84E6-4D2F483988A8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "UnitTests", "tests\UnitTests\UnitTests.csproj", "{E7BFAAF7-C595-4996-84E6-4D2F483988A8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "tests\IntegrationTests\IntegrationTests.csproj", "{CAA764E8-EE67-4067-A2AC-5C90247BA0BA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IntegrationTests", "tests\IntegrationTests\IntegrationTests.csproj", "{CAA764E8-EE67-4067-A2AC-5C90247BA0BA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "src\Application\Application.csproj", "{76F20041-3594-43A8-B7E2-A683D7962381}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "src\Application\Application.csproj", "{76F20041-3594-43A8-B7E2-A683D7962381}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "labs", "labs", "{5DB52A82-E8EE-42F7-89AB-B7F3F17E6488}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Producer", "labs\Producer\Producer.csproj", "{A668B2AD-33CD-492E-B80B-C65D86FAB292}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Consumer", "labs\Consumer\Consumer.csproj", "{E97E3621-AF5A-440D-B317-64811796EDE6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -37,6 +43,14 @@ Global
 		{76F20041-3594-43A8-B7E2-A683D7962381}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76F20041-3594-43A8-B7E2-A683D7962381}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76F20041-3594-43A8-B7E2-A683D7962381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A668B2AD-33CD-492E-B80B-C65D86FAB292}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A668B2AD-33CD-492E-B80B-C65D86FAB292}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A668B2AD-33CD-492E-B80B-C65D86FAB292}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A668B2AD-33CD-492E-B80B-C65D86FAB292}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E97E3621-AF5A-440D-B317-64811796EDE6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E97E3621-AF5A-440D-B317-64811796EDE6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E97E3621-AF5A-440D-B317-64811796EDE6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E97E3621-AF5A-440D-B317-64811796EDE6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +60,8 @@ Global
 		{E7BFAAF7-C595-4996-84E6-4D2F483988A8} = {9CFBB3EA-0FB2-4439-9EBB-AB55F9D3C8C4}
 		{CAA764E8-EE67-4067-A2AC-5C90247BA0BA} = {9CFBB3EA-0FB2-4439-9EBB-AB55F9D3C8C4}
 		{76F20041-3594-43A8-B7E2-A683D7962381} = {2E63F812-65FB-484D-850B-B16CA1379DFF}
+		{A668B2AD-33CD-492E-B80B-C65D86FAB292} = {5DB52A82-E8EE-42F7-89AB-B7F3F17E6488}
+		{E97E3621-AF5A-440D-B317-64811796EDE6} = {5DB52A82-E8EE-42F7-89AB-B7F3F17E6488}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1A8CCCC0-9781-4C64-B446-B2645028EC45}

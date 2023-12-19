@@ -1,4 +1,5 @@
 using SampleWorker.Worker.DependencyInjection;
+using Serilog;
 
 try
 {
@@ -15,8 +16,7 @@ try
     builder.Logging.AddSerilog(Log.Logger);
 
     builder.Services.AddHealthChecks();
-    builder.Services.InitializeAppliactionServices(builder.Configuration,
-        builder.Environment);
+    builder.Services.InitializeAppliactionServices(builder.Configuration);
 
     var app = builder.Build();
 
@@ -31,4 +31,7 @@ catch (Exception exception)
 
 [ExcludeFromCodeCoverage]
 public partial class Program
-{ }
+{
+    protected Program()
+    { }
+}
